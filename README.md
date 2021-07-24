@@ -58,7 +58,7 @@ _evictall "$1"
 
 ## SQL
 
-#### Compare two queries
+### Compare two queries
 
 Use the following template to get the difference between two queries:
 
@@ -77,7 +77,7 @@ select * from q2 except select * from q1);
 References:
 - <https://stackoverflow.com/questions/11017678/sql-server-compare-results-of-two-queries-that-should-be-identical/63380681#63380681>
 
-#### [Amazon Redshift] Disable results caching for current session
+### [Amazon Redshift] Disable results caching for current session
 
 ```sql
 set enable_result_cache_for_session to off;
@@ -91,8 +91,13 @@ References:
 
 ### GitHub Markdown style on JetBrains IDEs
 
+Inspired and adapted from <https://github.com/sindresorhus/github-markdown-css>
+
 1. Open the `Preferences -> Language & Frameworks -> Markdown`
 2. Copy the contents of [snippets/github-markdown.css](snippets/github-markdown.css) into the open
    text box under `Custom CSS -> Add CSS rules`
 
 ![img.png](assets/img/jetbrains_markdown_css_rules.png)
+
+References:
+- <https://www.jetbrains.com/help/idea/markdown.html#css>
