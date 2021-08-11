@@ -93,6 +93,7 @@ select * from missing_from_q1
 ```
 
 References:
+
 - <https://stackoverflow.com/questions/11017678/sql-server-compare-results-of-two-queries-that-should-be-identical/63380681#63380681>
 
 ### [Amazon Redshift] Disable results caching for current session
@@ -102,6 +103,7 @@ set enable_result_cache_for_session to off;
 ```
 
 References:
+
 - <https://docs.aws.amazon.com/redshift/latest/dg/r_enable_result_cache_for_session.html>
 
 
@@ -112,12 +114,13 @@ References:
 Inspired and adapted from <https://github.com/sindresorhus/github-markdown-css>
 
 1. Open the `Preferences -> Language & Frameworks -> Markdown`
-2. Copy the contents of [snippets/github-markdown.css](snippets/github-markdown.css) into the open
+2. Copy the contents of [snippets/misc/github-markdown.css](snippets/misc/github-markdown.css) into the open
    text box under `Custom CSS -> Add CSS rules`
 
 ![img.png](assets/img/jetbrains_markdown_css_rules.png)
 
 References:
+
 - <https://www.jetbrains.com/help/idea/markdown.html#css>
 
 ### Custom playback rate for Udemy videos
