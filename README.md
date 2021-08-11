@@ -90,6 +90,74 @@ References:
 
 ## Kubernetes
 
+### Beyond `kubectl cp`
+
+kubectl's builtin `cp` utility can sometimes trow weird errors. This simple alternative gets the job done
+most of the time. In addition to this, this alternative also compresses the target before sending it over the
+network (to stdin) which can reduce the download times many fold. This is actually _similar_ to what runs
+[behind the scenes](https://github.com/kubernetes/kubectl/blob/master/pkg/cmd/cp/cp.go) when you invoke the
+`kubectl cp` utility, excluding the compression bit (the `z` flag). Note that this only works in the context
+of copying files **from** a container! Enjoy, and happy hacking!
+
+```shell
+kubectl exec my-pod -- tar czf - /path/to/file/or/directory | tar xzf -
+```
+
+Now an even fancier alternative...
+
+```shell
+#!/bin/zsh
+
+# kp - Copy files from a k8s pod
+#
+# I found some issues with kubectl's builtin cp utility.
+# This script replaces the `kubectl cp` command for the
+# case of copying file **from** a container only.
+#
+# Note that the target path should be relative to the
+# top-level directory of the current git working tree.
+#
+# Execution details:
+#   1. execute a command inside a pod
+#   2. (inside pod) change directories to the current repository
+#   3. (inside pod) tar and compress the target file(s)
+#   4. (inside pod) print compressed tarball to stdout
+#   5. read from tarball from stdout
+#   6. decompress and export file(s) to current project
+# Note: pv is a utility for monitoring the progress of data through a pipe
+#
+# Arguments:
+#   * $1 : pod name
+#   * $2 : target file or directory
+#
+# Examples:
+#   $ ./kp.zsh my-pod path/to/target/dir
+#   ...
+#   $ ./kp.zsh my-pod path/to/target/file.txt
+#   ...
+
+pod="${1}"
+target="${2}"
+
+target_tgz="${target}.tar.gz"
+
+echo "Creating archive ${target_tgz}"
+kubectl exec "${pod}" -- tar czf "${target_tgz}" "${target}"
+
+target_size="$(kubectl exec "${pod}" -- du -bs "${target_tgz}" | cut -f1)"
+
+echo "Copying archive to ${target}"
+kubectl exec "${pod}" -- \
+  cat "${target_tgz}" |
+  pv -s "${target_size}" |
+  tar xzf -
+
+echo "Removing archive from ${pod}"
+kubectl exec "${pod}" -- rm -f "${target_tgz}"
+```
+
+
+
 ### Sync current git working tree to a k8s pod
 
 This utility helps you sync your current git working tree with a remote k8s pod. This assumes that the project
