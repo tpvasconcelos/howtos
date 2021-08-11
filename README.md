@@ -88,6 +88,21 @@ References:
 
 - <https://docs.aws.amazon.com/redshift/latest/dg/r_enable_result_cache_for_session.html>
 
+## Kubernetes
+
+### Sync current git working tree to a k8s pod
+
+This utility helps you sync your current git working tree with a remote k8s pod. This assumes that the project
+is cloned under `/home/jovyan` on the remote pod. The repository name will be inferred from the current
+repository using `git rev-parse --show-toplevel`. For this to work, you also need to have rsync installed in
+the remote k8s pod (run: `sudo apt install rsync grsync`). Note that the `.git/` directory will not be synced.
+In addition to this, nothing in `.gitignore` will be synced.
+
+Simply add a copy of [snippets/k8s/krsync.zsh](snippets/k8s/krsync.zsh) and
+[snippets/k8s/krsync-subshell.sh](snippets/k8s/krsync-subshell.sh) to the top level directory of your git
+repository and run `./krsync.zsh my-pod`.
+
+- <https://serverfault.com/questions/741670/rsync-files-to-a-kubernetes-pod>
 
 ## Misc
 
