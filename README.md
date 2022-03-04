@@ -101,3 +101,15 @@ Inspired and adapted from <https://github.com/sindresorhus/github-markdown-css>
 
 References:
 - <https://www.jetbrains.com/help/idea/markdown.html#css>
+
+### Custom playback rate for Udemy videos
+
+```javascript
+document.querySelector("video").playbackRate = 1.2
+
+// The above line above should be enough as there should only be a single <video> element
+// document.querySelector(".video-player--video-player--1sfof").querySelector("video").playbackRate = 1.2
+```
+
+References:
+- <https://github.com/gitnix/chrome-extension-udemy-playback-rate>
