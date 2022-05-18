@@ -66,11 +66,9 @@ Use the following template to get the difference between two queries:
 with q1 as (
     <INSERT_Q1_HERE>
 )
-
 , q2 as (
     <INSERT_Q2_HERE>
-  )
-
+)
 , missing_from_q2 as (
     select *
     from (
@@ -80,7 +78,6 @@ with q1 as (
     )
     cross join (select 'missing from q2' as diff_description)
 )
-
 , missing_from_q1 as (
     select *
     from (
@@ -90,10 +87,9 @@ with q1 as (
     )
     cross join (select 'missing from q1' as diff_description)
 )
-
-select * from in_q1_and_not_in_q2
+select * from missing_from_q2
 union all
-select * from in_q2_and_not_in_q1
+select * from missing_from_q1
 ```
 
 References:
