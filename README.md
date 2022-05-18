@@ -64,14 +64,36 @@ Use the following template to get the difference between two queries:
 
 ```sql
 with q1 as (
-    <INSERT_QUERY_1_HERE>
+    <INSERT_Q1_HERE>
 )
+
 , q2 as (
-    <INSERT_QUERY_2_HERE>
+    <INSERT_Q2_HERE>
   )
-select * from q1 except select * from q2
-union all (
-select * from q2 except select * from q1);
+
+, missing_from_q2 as (
+    select *
+    from (
+        select * from q1 
+        except 
+        select * from q2
+    )
+    cross join (select 'missing from q2' as diff_description)
+)
+
+, missing_from_q1 as (
+    select *
+    from (
+        select * from q2 
+        except
+        select * from q1
+    )
+    cross join (select 'missing from q1' as diff_description)
+)
+
+select * from in_q1_and_not_in_q2
+union all
+select * from in_q2_and_not_in_q1
 ```
 
 References:
