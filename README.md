@@ -72,8 +72,8 @@ with q1 as (
 , missing_from_q2 as (
     select *
     from (
-        select * from q1 
-        except 
+        select * from q1
+        except
         select * from q2
     )
     cross join (select 'missing from q2' as diff_description)
@@ -81,7 +81,7 @@ with q1 as (
 , missing_from_q1 as (
     select *
     from (
-        select * from q2 
+        select * from q2
         except
         select * from q1
     )
@@ -130,13 +130,9 @@ Inspired and adapted from <https://github.com/sindresorhus/github-markdown-css>
 
 1. Open the `Preferences -> Language & Frameworks -> Markdown`
 2. Copy the contents of [snippets/misc/github-markdown.css](snippets/misc/github-markdown.css) into the open
-   text box under `Custom CSS -> Add CSS rules`
+   text box under `Custom CSS -> CSS rules`
 
-![img.png](assets/img/jetbrains_markdown_css_rules.png)
-
-References:
-
-- <https://www.jetbrains.com/help/idea/markdown.html#css>
+![JetBrains IDE Custom Markdown CSS Rules](assets/img/jetbrains_markdown_css_rules.png)
 
 ### Custom playback rate for Udemy videos
 
