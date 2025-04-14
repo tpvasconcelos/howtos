@@ -134,14 +134,9 @@ Inspired and adapted from <https://github.com/sindresorhus/github-markdown-css>
 
 ![JetBrains IDE Custom Markdown CSS Rules](assets/img/jetbrains_markdown_css_rules.png)
 
-### Custom playback rate for Udemy videos
+### Custom playback speed embedded videos
 
 ```javascript
-document.querySelector("video").playbackRate = 1.2
-
-// The above line above should be enough as there should only be a single <video> element
-// document.querySelector(".video-player--video-player--1sfof").querySelector("video").playbackRate = 1.2
+// This will update the play speed of *all* videos on the page to 1.5x
+document.querySelectorAll("video").forEach(el => el.playbackRate = 1.5)
 ```
-
-References:
-- <https://github.com/gitnix/chrome-extension-udemy-playback-rate>
