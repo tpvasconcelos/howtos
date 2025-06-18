@@ -76,7 +76,7 @@ with q1 as (
         except
         select * from q2
     )
-    cross join (select 'missing from q2' as diff_description)
+    cross join (select 'missing from q2' as diff_description) mq2_col
 )
 , missing_from_q1 as (
     select *
@@ -85,7 +85,7 @@ with q1 as (
         except
         select * from q1
     )
-    cross join (select 'missing from q1' as diff_description)
+    cross join (select 'missing from q1' as diff_description) mq1_col
 )
 select * from missing_from_q2
 union all
